@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Student Placement System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+
+    <div id="loginPage" class="login-page">
+
+        <div class="login-card">
+
+            <div class="logo-icon">🎓</div>
+
+            <h1>SmartPlacements</h1>
+
+            <p>Smart Student Placement System</p>
+
+            <form id="loginForm">
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    Login
+                </button>
+
+            </form>
+
+            <div class="demo-box">
+
+                <h3>Demo Accounts</h3>
+
+                <p>
+                    Student:
+                    <b>student</b> / <b>1234</b>
+                </p>
+
+                <p>
+                    Company:
+                    <b>company</b> / <b>1234</b>
+                </p>
+
+                <p>
+                    Admin:
+                    <b>admin</b> / <b>admin123</b>
+                </p>
+
+            </div>
+
+            <p
+                id="loginMessage"
+                class="error"
+            ></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN APPLICATION -->
+
+    <div
+        id="app"
+        class="hidden"
+    >
+
+        <!-- NAVIGATION -->
+
+        <nav class="navbar">
+
+            <div class="brand">
+                🎓 SmartPlacements
+            </div>
+
+            <div class="nav-links">
+
+                <a
+                    href="#"
+                    onclick="showPage('home')"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="#"
+                    onclick="showPage('jobs')"
+                >
+                    Jobs
+                </a>
+
+                <a
+                    href="#"
+                    onclick="showPage('dashboard')"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="#"
+                    id="companyNav"
+                    class="hidden"
+                    onclick="showPage('company')"
+                >
+                    Company
+                </a>
+
+                <a
+                    href="#"
+                    id="adminNav"
+                    class="hidden"
+                    onclick="showPage('admin')"
+                >
+                    Admin
+                </a>
+
+                <button
+                    class="logout-btn"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </nav>
+
+
+        <!-- HOME PAGE -->
+
+        <section
+            id="homePage"
+            class="page"
+        >
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <span class="badge">
+                        🚀 Career Starts Here
+                    </span>
+
+                    <h1>
+                        Smart Student Placement System
+                    </h1>
+
+                    <p>
+                        Connect students with the right
+                        companies and build successful careers.
+                    </p>
+
+                    <button
+                        class="btn"
+                        onclick="showPage('jobs')"
+                    >
+                        Explore Job Opportunities
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-section">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔍
+                    </div>
+
+                    <h3>
+                        Find Jobs
+                    </h3>
+
+                    <p>
+                        Discover placement opportunities
+                        matching your skills.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Smart Matching
+                    </h3>
+
+                    <p>
+                        Find opportunities based on
+                        your skills and qualifications.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Track Applications
+                    </h3>
+
+                    <p>
+                        Monitor your placement applications
+                        in one place.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🏢
+                    </div>
+
+                    <h3>
+                        Top Companies
+                    </h3>
+
+                    <p>
+                        Connect with companies looking
+                        for talented students.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- JOBS PAGE -->
+
+        <section
+            id="jobsPage"
+            class="page hidden"
+        >
+
+            <h2>
+                Placement Opportunities
+            </h2>
+
+            <div class="search-area">
+
+                <input
+                    type="text"
+                    id="searchJob"
+                    placeholder="Search by job, company, skill..."
+                    onkeyup="filterJobs()"
+                >
+
+                <select
+                    id="jobCategory"
+                    onchange="filterJobs()"
+                >
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="Software">
+                        Software
+                    </option>
+
+                    <option value="Data">
+                        Data
+                    </option>
+
+                    <option value="Finance">
+                        Finance
+                    </option>
+
+                    <option value="Marketing">
+                        Marketing
+                    </option>
+
+                    <option value="Core">
+                        Core Engineering
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div
+                id="jobList"
+                class="job-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- STUDENT DASHBOARD -->
+
+        <section
+            id="dashboardPage"
+            class="page hidden"
+        >
+
+            <h2>
+                Student Dashboard
+            </h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>📝</span>
+                    <h3 id="totalApplications">0</h3>
+                    <p>Applications</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>⏳</span>
+                    <h3 id="pendingApplications">0</h3>
+                    <p>Pending</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>✅</span>
+                    <h3 id="selectedApplications">0</h3>
+                    <p>Selected</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>❌</span>
+                    <h3 id="rejectedApplications">0</h3>
+                    <p>Rejected</p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <h3>
+                    Student Profile
+                </h3>
+
+                <p>
+                    <strong>Name:</strong>
+                    <span id="studentName"></span>
+                </p>
+
+                <p>
+                    <strong>Course:</strong>
+                    Computer Science
+                </p>
+
+                <p>
+                    <strong>CGPA:</strong>
+                    8.4
+                </p>
+
+                <p>
+                    <strong>Skills:</strong>
+                    JavaScript, Python, SQL, HTML, CSS
+                </p>
+
+            </div>
+
+
+            <h3 class="section-title">
+                My Applications
+            </h3>
+
+            <div
+                id="studentApplications"
+                class="application-list"
+            ></div>
+
+        </section>
+
+
+        <!-- COMPANY PAGE -->
+
+        <section
+            id="companyPage"
+            class="page hidden"
+        >
+
+            <h2>
+                Company Dashboard
+            </h2>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span>💼</span>
+
+                    <h3 id="companyJobs">
+                        0
+                    </h3>
+
+                    <p>
+                        Jobs Posted
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>👨‍🎓</span>
+
+                    <h3 id="receivedApplications">
+                        0
+                    </h3>
+
+                    <p>
+                        Applications
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-card">
+
+                <h3>
+                    Post New Job
+                </h3>
+
+                <form id="jobForm">
+
+                    <input
+                        type="text"
+                        id="jobTitle"
+                        placeholder="Job Title"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        placeholder="Company Name"
+                        required
+                    >
+
+                    <select
+                        id="jobType"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Software">
+                            Software
+                        </option>
+
+                        <option value="Data">
+                            Data
+                        </option>
+
+                        <option value="Finance">
+                            Finance
+                        </option>
+
+                        <option value="Marketing">
+                            Marketing
+                        </option>
+
+                        <option value="Core">
+                            Core Engineering
+                        </option>
+
+                    </select>
+
+                    <input
+                        type="text"
+                        id="jobLocation"
+                        placeholder="Location"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="jobPackage"
+                        placeholder="Package (e.g. 6 LPA)"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="jobSkills"
+                        placeholder="Required Skills"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        id="minCGPA"
+                        placeholder="Minimum CGPA"
+                        step="0.1"
+                        min="0"
+                        max="10"
+                        required
+                    >
+
+                    <textarea
+                        id="jobDescription"
+                        placeholder="Job Description"
+                        required
+                    ></textarea>
+
+                    <button
+                        class="btn"
+                        type="submit"
+                    >
+                        Post Job
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <h3 class="section-title">
+                Applications Received
+            </h3>
+
+            <div
+                id="companyApplicationList"
+                class="application-list"
+            ></div>
+
+        </section>
+
+
+        <!-- ADMIN PAGE -->
+
+        <section
+            id="adminPage"
+            class="page hidden"
+        >
+
+            <h2>
+                Placement Officer Dashboard
+            </h2>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>👨‍🎓</span>
+                    <h3 id="studentCount">0</h3>
+                    <p>Students</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🏢</span>
+                    <h3 id="companyCount">0</h3>
+                    <p>Companies</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>💼</span>
+                    <h3 id="jobCount">0</h3>
+                    <p>Jobs</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🎯</span>
+                    <h3 id="placedCount">0</h3>
+                    <p>Students Placed</p>
+                </div>
+
+            </div>
+
+
+            <div class="placement-summary">
+
+                <h3>
+                    Placement Overview
+                </h3>
+
+                <div class="progress-container">
+
+                    <div
+                        id="placementProgress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <p id="placementPercentage">
+                    0% Placement Rate
+                </p>
+
+            </div>
+
+
+            <h3 class="section-title">
+                Manage Job Listings
+            </h3>
+
+            <div
+                id="adminJobList"
+                class="application-list"
+            ></div>
+
+        </section>
+
+
+        <footer>
+
+            <p>
+                © 2026 SmartPlacements |
+                Student Placement Management System
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
